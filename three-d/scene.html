@@ -3,26 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>校园三维导览 - 占位</title>
+  <title>校园三维导览 - 自主实践</title>
   <link href="../libs/bootstrap.min.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
+  <style>
+    html, body { height: 100%; margin: 0; overflow: hidden; }
+    #tip {
+      position: absolute; top: 66px; left: 12px; z-index: 10;
+      background: rgba(255,255,255,0.9); padding: 8px 12px; border-radius: 6px;
+      font-size: 0.85rem; color: #495057; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
 <body>
-  <nav class="navbar navbar-dark bg-primary shadow-sm">
+  <nav class="navbar navbar-dark bg-primary shadow-sm" style="height:56px;">
     <div class="container">
       <a class="navbar-brand fw-bold" href="../index.html">📚 自习室数据平台</a>
       <a class="btn btn-outline-light btn-sm" href="../index.html">← 返回首页</a>
     </div>
   </nav>
-  <div class="container py-5">
-    <div class="placeholder-box p-5 rounded">
-      <div class="text-center">
-        <div class="display-4 mb-3">🧭</div>
-        <h2 class="h5 fw-bold">校园三维导览</h2>
-        <p class="text-muted mb-0">三维场景占位页 —— 后续将搬入 Three.js 校园场景，支持旋转、缩放。</p>
-      </div>
-    </div>
-  </div>
-  <script src="../libs/bootstrap.bundle.min.js"></script>
+
+  <div id="tip">🖱️ 左键拖拽旋转 · 滚轮缩放 · 右键平移；场景自动缓慢旋转，切到后台标签页会暂停</div>
+
+  <!-- 库在前，自己的场景代码在后 -->
+  <script src="../libs/three.min.js"></script>
+  <script src="../libs/OrbitControls.js"></script>
+  <script src="scene.js"></script>
 </body>
 </html>
