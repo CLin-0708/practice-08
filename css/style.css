@@ -62,3 +62,59 @@ section {
 footer {
   font-size: 0.9rem;
 }
+
+/* ===== 可访问性修复（Lighthouse） ===== */
+/* 修复1：原 .text-muted 为 #6c757d，白底对比度约 4.47:1，略低于 AA 4.5:1，加深到 #495057（约 7.9:1） */
+.text-muted {
+  color: #495057 !important;
+}
+
+/* 修复3：跳到主内容链接，键盘聚焦时显示在最上层 */
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1040;
+}
+
+/* 修复1（续）：彩色描边按钮未选中时是“彩色文字+白底”，默认色对比度不足，
+   改用同色系更深的色值（文字、边框、悬停、选中统一），全部达到 AA ≥4.5:1 */
+.btn-outline-secondary {
+  --bs-btn-color: #495057;
+  --bs-btn-border-color: #495057;
+  --bs-btn-hover-bg: #495057;
+  --bs-btn-hover-border-color: #495057;
+  --bs-btn-active-bg: #495057;
+  --bs-btn-active-border-color: #495057;
+}
+.btn-outline-success {
+  --bs-btn-color: #0f5132;
+  --bs-btn-border-color: #0f5132;
+  --bs-btn-hover-bg: #0f5132;
+  --bs-btn-hover-border-color: #0f5132;
+  --bs-btn-active-bg: #0f5132;
+  --bs-btn-active-border-color: #0f5132;
+}
+.btn-outline-warning {
+  --bs-btn-color: #9a6700;
+  --bs-btn-border-color: #9a6700;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #9a6700;
+  --bs-btn-hover-border-color: #9a6700;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #9a6700;
+  --bs-btn-active-border-color: #9a6700;
+}
+.btn-outline-danger {
+  --bs-btn-color: #842029;
+  --bs-btn-border-color: #842029;
+  --bs-btn-hover-bg: #842029;
+  --bs-btn-hover-border-color: #842029;
+  --bs-btn-active-bg: #842029;
+  --bs-btn-active-border-color: #842029;
+}
+
+/* “当前在馆人数”大数字：原 text-warning(#f59e0b) 白底仅约 2.5:1，改用深琥珀色 #b45309（约 5.9:1） */
+.text-amber {
+  color: #b45309 !important;
+}

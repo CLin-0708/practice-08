@@ -10,6 +10,9 @@
 </head>
 <body data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="80" tabindex="0">
 
+  <!-- 可访问性修复3：键盘 Tab 的第一个焦点，可直接跳到主内容，避免逐格 Tab 导航 -->
+  <a class="visually-hidden-focusable btn btn-warning skip-link" href="#home">跳到主内容</a>
+
   <!-- 统一导航：首页 / 图表分析 / 自习室查询 / 校园三维 -->
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
     <div class="container">
@@ -49,7 +52,7 @@
           <div class="card h-100 border-0 shadow-sm module-card">
             <div class="card-body text-center">
               <div class="display-5 mb-2">📊</div>
-              <h5 class="card-title fw-bold">图表分析</h5>
+              <h2 class="card-title fw-bold h5">图表分析</h2>
               <p class="card-text text-muted small">ECharts 楼栋柱状图 + Chart.js 状态环形图，两类有效图表。</p>
               <a href="#charts" class="btn btn-outline-primary btn-sm">查看图表</a>
             </div>
@@ -59,7 +62,7 @@
           <div class="card h-100 border-0 shadow-sm module-card">
             <div class="card-body text-center">
               <div class="display-5 mb-2">🔎</div>
-              <h5 class="card-title fw-bold">自习室查询</h5>
+              <h2 class="card-title fw-bold h5">自习室查询</h2>
               <p class="card-text text-muted small">实时搜索 + 楼栋/状态筛选，列表即时更新。</p>
               <a href="#query" class="btn btn-outline-primary btn-sm">前往查询</a>
             </div>
@@ -69,7 +72,7 @@
           <div class="card h-100 border-0 shadow-sm module-card">
             <div class="card-body text-center">
               <div class="display-5 mb-2">🗂️</div>
-              <h5 class="card-title fw-bold">JSON 数据</h5>
+              <h2 class="card-title fw-bold h5">JSON 数据</h2>
               <p class="card-text text-muted small">异步加载 study_rooms.json，含加载中/空数据/失败三状态。</p>
               <a href="#query" class="btn btn-outline-primary btn-sm">查看数据</a>
             </div>
@@ -79,7 +82,7 @@
           <div class="card h-100 border-0 shadow-sm module-card">
             <div class="card-body text-center">
               <div class="display-5 mb-2">🧭</div>
-              <h5 class="card-title fw-bold">校园三维</h5>
+              <h2 class="card-title fw-bold h5">校园三维</h2>
               <p class="card-text text-muted small">Three.js 校园三维导览，可旋转缩放。</p>
               <a href="three-d/scene.html" class="btn btn-outline-primary btn-sm">进入三维</a>
             </div>
@@ -109,7 +112,7 @@
           <div class="card border-0 shadow-sm h-100">
             <div class="card-header bg-white fw-bold py-3">各楼栋座位容量与在座人数对比（ECharts 柱状图，单位：席/人）</div>
             <div class="card-body">
-              <div id="barChart" style="width:100%; height:380px;"></div>
+              <div id="barChart" role="img" aria-label="各楼栋座位容量与在座人数柱状图" style="width:100%; height:380px;"></div>
             </div>
           </div>
         </div>
@@ -117,7 +120,7 @@
           <div class="card border-0 shadow-sm h-100">
             <div class="card-header bg-white fw-bold py-3">自习室开放状态分布（Chart.js 环形图）</div>
             <div class="card-body d-flex align-items-center justify-content-center" style="height:416px;">
-              <canvas id="statusChart"></canvas>
+              <canvas id="statusChart" role="img" aria-label="自习室开放状态分布环形图"></canvas>
             </div>
           </div>
         </div>
@@ -165,7 +168,7 @@
 
       <!-- 查询结果 -->
       <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
-        <h5 class="fw-bold mb-0">查询结果</h5>
+        <h3 class="fw-bold mb-0 h5">查询结果</h3>
         <span id="resultCount" class="badge bg-secondary px-3 py-2">共 0 间</span>
       </div>
       <div class="row g-3" id="roomList"></div>

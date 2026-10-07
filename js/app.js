@@ -51,7 +51,7 @@ function renderStatCards(data) {
   const cards = [
     { label: '自习室总数', value: totalRooms, unit: '间', color: 'primary', note: '涵盖全校 5 大楼栋区域' },
     { label: '总座位容量', value: totalSeats, unit: '席', color: 'success', note: '已统计开放楼层自习位' },
-    { label: '当前在馆人数', value: totalOccupied, unit: '人', color: 'warning', note: '自习室实时已入座统计' },
+    { label: '当前在馆人数', value: totalOccupied, unit: '人', color: 'amber', note: '自习室实时已入座统计' },
     { label: '全校在座率', value: rate, unit: '%', color: 'danger', note: '全校自习资源负荷比例' }
   ];
 
@@ -164,7 +164,7 @@ function renderRoomList() {
         '<div class="card border-0 shadow-sm h-100 room-card">' +
           '<div class="card-body">' +
             '<div class="d-flex justify-content-between align-items-start">' +
-              '<h6 class="card-title fw-bold mb-1">' + r.name + '</h6>' +
+              '<h4 class="card-title fw-bold mb-1 h6">' + r.name + '</h4>' +
               statusBadge(r.status) +
             '</div>' +
             '<div class="small text-muted mb-2">📍 ' + r.building + ' · ' + r.floor + ' 楼　🕘 ' + r.hours + '</div>' +
