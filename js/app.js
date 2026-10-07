@@ -33,6 +33,7 @@ async function loadData() {
     renderStatCards(data);
     renderBarChart(data);
     renderStatusChart(data);
+    renderRoomList();
   } catch (error) {
     showStatus('danger', '⚠️ 数据加载失败：' + error.message +
       '（直接双击打开会被浏览器拦截，请用本地服务器 http://localhost:8080/practice-08/ 访问）');
@@ -128,6 +129,85 @@ function renderStatusChart(data) {
     }
   });
 }
+
+// ===== 自习室查询：实时搜索 + 楼栋/状态筛选 =====
+const queryState = { keyword: '', building: '全部', status: '全部' };
+
+const searchInputEl = document.getElementById('searchInput');
+const roomListEl = document.getElementById('roomList');
+const resultCountEl = document.getElementById('resultCount');
+const noResultEl = document.getElementById('noResult');
+
+function statusBadge(status) {
+  if (status === '开放') return '<span class="badge bg-success">正常开放</span>';
+  if (status === '维修') return '<span class="badge bg-warning text-dark">暂停维修</span>';
+  return '<span class="badge bg-danger">闭馆中</span>';
+}
+
+function renderRoomList() {
+  if (!state.data) return;
+  const kw = queryState.keyword.trim();
+  const filtered = state.data.rooms.filter(r => {
+    const matchKeyword = !kw || r.name.includes(kw) || r.building.includes(kw);
+    const matchBuilding = queryState.building === '全部' || r.building === queryState.building;
+    const matchStatus = queryState.status === '全部' || r.status === queryState.status;
+    return matchKeyword && matchBuilding && matchStatus;
+  });
+
+  resultCountEl.textContent = '共 ' + filtered.length + ' 间';
+  noResultEl.style.display = filtered.length === 0 ? 'block' : 'none';
+
+  roomListEl.innerHTML = filtered.map(r => {
+    const rate = (r.occupied / r.seats * 100).toFixed(0);
+    return (
+      '<div class="col-md-6 col-lg-4">' +
+        '<div class="card border-0 shadow-sm h-100 room-card">' +
+          '<div class="card-body">' +
+            '<div class="d-flex justify-content-between align-items-start">' +
+              '<h6 class="card-title fw-bold mb-1">' + r.name + '</h6>' +
+              statusBadge(r.status) +
+            '</div>' +
+            '<div class="small text-muted mb-2">📍 ' + r.building + ' · ' + r.floor + ' 楼　🕘 ' + r.hours + '</div>' +
+            '<div class="d-flex justify-content-between small mb-1">' +
+              '<span class="text-muted">座位 ' + r.seats + ' 席</span>' +
+              '<span class="text-muted">在座 ' + r.occupied + ' 人</span>' +
+            '</div>' +
+            '<div class="progress" style="height:8px;">' +
+              '<div class="progress-bar ' + (rate > 85 ? 'bg-danger' : rate > 60 ? 'bg-warning' : 'bg-success') +
+                '" style="width:' + rate + '%"></div>' +
+            '</div>' +
+            '<div class="small text-muted mt-1">入座率 ' + rate + '%</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>');
+  }).join('');
+}
+
+// 绑定搜索（input 事件，边输入边过滤）
+searchInputEl.addEventListener('input', function () {
+  queryState.keyword = searchInputEl.value;
+  renderRoomList();
+});
+
+// 绑定楼栋筛选按钮
+document.getElementById('buildingFilter').addEventListener('click', function (e) {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  this.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  queryState.building = btn.dataset.building;
+  renderRoomList();
+});
+
+// 绑定状态筛选按钮
+document.getElementById('statusFilter').addEventListener('click', function (e) {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  this.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  queryState.status = btn.dataset.status;
+  renderRoomList();
+});
 
 // 图表自适应
 window.addEventListener('resize', function () {

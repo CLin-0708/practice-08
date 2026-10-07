@@ -125,12 +125,52 @@
     </div>
   </section>
 
-  <!-- 自习室查询区块（后续填充） -->
+  <!-- 自习室查询区块：实时搜索 + 楼栋/状态筛选 + 结果列表 -->
   <section id="query" class="py-5">
     <div class="container">
       <h2 class="h4 fw-bold mb-3">🔎 自习室查询</h2>
-      <div class="placeholder-box p-5 rounded">
-        搜索与筛选交互模块占位 —— 后续将实现实时搜索、楼栋/状态过滤与列表渲染
+
+      <!-- 查询条件卡片 -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <div class="row g-3">
+            <div class="col-lg-5">
+              <label for="searchInput" class="form-label fw-semibold">关键词搜索（按自习室名称 / 楼栋）</label>
+              <input type="text" class="form-control" id="searchInput"
+                     placeholder="输入关键词，列表实时更新，如：图书馆、楠苑、二楼">
+            </div>
+            <div class="col-lg-7">
+              <label class="form-label fw-semibold d-block">开放状态筛选</label>
+              <div class="btn-group btn-group-sm flex-wrap" role="group" id="statusFilter">
+                <button type="button" class="btn btn-outline-secondary active" data-status="全部">全部</button>
+                <button type="button" class="btn btn-outline-success" data-status="开放">开放</button>
+                <button type="button" class="btn btn-outline-warning" data-status="维修">维修</button>
+                <button type="button" class="btn btn-outline-danger" data-status="闭馆">闭馆</button>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <label class="form-label fw-semibold d-block">楼栋筛选</label>
+            <div class="btn-group btn-group-sm flex-wrap" role="group" id="buildingFilter">
+              <button type="button" class="btn btn-outline-primary active" data-building="全部">全部楼栋</button>
+              <button type="button" class="btn btn-outline-primary" data-building="楠苑">楠苑</button>
+              <button type="button" class="btn btn-outline-primary" data-building="梓苑">梓苑</button>
+              <button type="button" class="btn btn-outline-primary" data-building="图书馆">图书馆</button>
+              <button type="button" class="btn btn-outline-primary" data-building="理科楼">理科楼</button>
+              <button type="button" class="btn btn-outline-primary" data-building="文科楼">文科楼</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 查询结果 -->
+      <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+        <h5 class="fw-bold mb-0">查询结果</h5>
+        <span id="resultCount" class="badge bg-secondary px-3 py-2">共 0 间</span>
+      </div>
+      <div class="row g-3" id="roomList"></div>
+      <div id="noResult" class="alert alert-info text-center" style="display:none;">
+        😅 没有符合条件的自习室，换个关键词或重置筛选条件试试～
       </div>
     </div>
   </section>
